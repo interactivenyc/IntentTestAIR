@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<application xmlns="http://ns.adobe.com/air/application/3.8">
+	<id>com.intent.test</id>
+	<filename>AIRIntent</filename>
+	<name>AIRIntent</name>
+	<versionNumber>0.0.0</versionNumber>
+	<initialWindow>
+		<content>[This value will be overwritten by Flash Builder in the output app.xml]</content>
+       	<aspectRatio>landscape</aspectRatio>
+	<autoOrients>true</autoOrients>
+        <fullScreen>true</fullScreen>
+        <visible>true</visible>
+    </initialWindow>
+
+<android>
+        <manifestAdditions>
+		<![CDATA[	  
+			<manifest android:installLocation="preferExternal"> 
+				<uses-permission android:name="android.permission.INTERNET"/> 
+				<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> 
+				<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> 
+				<uses-permission android:name="android.permission.CLEAR_APP_USER_DATA"/> 
+				<uses-permission android:name="android.permission.DELETE_CACHE_FILES"/> 
+				<uses-permission android:name="android.permission.DISABLE_KEYGUARD"/> 
+				<uses-permission android:name="android.permission.WAKE_LOCK"/> 
+				<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> 
+				
+				<application android:allowClearUserData="true" android:enabled="true" android:persistent="true">
+					<activity android:name=".AppEntry" android:label="IntentTestAIR">
+						<intent-filter>
+						    <action android:name="android.intent.action.SEND" />
+						    <category android:name="android.intent.category.DEFAULT" />
+						    <data android:mimeType="text/plain" />
+						</intent-filter> 
+					</activity>
+				</application>
+				
+			</manifest> 
+		]]> 
+		</manifestAdditions> 
+    </android>
+    <iPhone>
+		<InfoAdditions><![CDATA[
+			<key>UIDeviceFamily</key>
+			<array>
+				<string>1</string>
+				<string>2</string>
+			</array>
+			<key>CFBundleURLTypes</key>
+			<array>
+				<dict>
+					<key>CFBundleURLSchemes</key>
+					<array>
+						<string>fb211032669024829</string>
+					</array>
+				</dict>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<true/>
+			<key>MinimumOSVersion</key>
+			<string>6.0</string>
+		]]></InfoAdditions>
+		<requestedDisplayResolution>high</requestedDisplayResolution>
+		<!-- <Entitlements><![CDATA[
+			<key>application-identifier</key>
+			<string>82HG9NWDTR.com.speakaboos.ipad</string>
+			<key>aps-environment</key>
+			<string>@APPS_ENVIRONMENT@</string>
+			<key>get-task-allow</key><@GET_TASK_ALLOW@/>
+			<key>keychain-access-groups</key>
+			<array>
+				<string>82HG9NWDTR.com.speakaboos.ipad</string>
+			</array>						
+		]]></Entitlements>  -->
+	</iPhone>
+	<icon>
+		<image48x48>AppIconsForPublish/Icon-48.png</image48x48>
+		<image72x72>AppIconsForPublish/Icon-72.png</image72x72>
+		<image512x512>AppIconsForPublish/Icon-512.png</image512x512>
+		<image144x144>AppIconsForPublish/Icon-144.png</image144x144>
+	</icon>
+</application>
