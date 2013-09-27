@@ -1,9 +1,13 @@
 package
 {
+	import com.adobe.sampleasextension.SampleASExtension;
+	
 	import flash.desktop.NativeApplication;
 	import flash.desktop.SystemIdleMode;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.display.Shape;
+	import flash.display.SimpleButton;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageQuality;
@@ -11,10 +15,12 @@ package
 	import flash.events.Event;
 	import flash.events.InvokeEvent;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
 	
@@ -67,9 +73,14 @@ package
 			_console.width = 800;
 			_console.height = 600;
 			_console.border = true;
-			_console.selectable = true;
+			_console.selectable = false;
+			_console.mouseEnabled = false;
 			_console.x = 10;
 			_console.y = 10;
+			//_console.type = TextFieldType.DYNAMIC;
+			
+			
+			
 			
 			_tf = _console.getTextFormat();
 			_tf.size = 24;
@@ -81,8 +92,21 @@ package
 			
 			stage.addChild(_console);
 			
+			
+			var simpleButton:MovieClip = getTextButton("try this");
+			simpleButton.x = 820;
+			simpleButton.y = 10;
+			
+			simpleButton.addEventListener(MouseEvent.CLICK, testIntent);
+			
+			
+			stage.addChild(simpleButton);
+			
 			addEventListeners();
 			handleResize();
+			
+			//try to dismiss soft keyboard
+			stage.focus = simpleButton;
 		}
 		
 		private function handleResize(e:Event = null) :void { 
@@ -97,12 +121,12 @@ package
 			log("***************************************");
 			log("handleResize(e)");
 			log("***************************************");
-			log("DEVICE_SCREEN: "+stage.stageWidth + " x " + stage.stageHeight);
-			log("ASPECT_RATIO: "+aspectRatio);
-			log("LEFT_EDGE: "+leftEdge);
-			log("VISIBLE_WIDTH: "+visibleWidth);
-			log("stageScale: "+stageScale);
-			log("***************************************");
+//			log("DEVICE_SCREEN: "+stage.stageWidth + " x " + stage.stageHeight);
+//			log("ASPECT_RATIO: "+aspectRatio);
+//			log("LEFT_EDGE: "+leftEdge);
+//			log("VISIBLE_WIDTH: "+visibleWidth);
+//			log("stageScale: "+stageScale);
+//			log("***************************************");
 		
 			
 //			_bg.x = -(leftEdge * stageScale);
@@ -129,12 +153,27 @@ package
 			return mc;
 		}
 		
+		private function getTextButton(label:String):MovieClip{
+			var button:MovieClip = new noClassButton();
+			button.text.label.text = label;
+			button.width = button.text.label.textWidth + 20;
+			
+			return button;
+		}
+		
 		private function addEventListeners():void{
 			stage.addEventListener(Event.RESIZE, handleResize);
 			
 			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, handleActivate, false, 0, true);
 			NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, handleDeactivate, false, 0, true);
 			NativeApplication.nativeApplication.addEventListener(KeyboardEvent.KEY_DOWN, handleKeys, false, 0, true);
+		}
+		
+		private function testIntent(e:MouseEvent):void{
+			log("testIntent");
+			
+			var ane:SampleASExtension = new SampleASExtension();
+			ane.getVersion();
 		}
 		
 			
